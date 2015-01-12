@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html class="no-js" lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>LED Movie Visualization</title>
+    <!-- css -->
+    <link href="/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://google.github.io/traceur-compiler/bin/traceur.js"></script>
+    <script src="https://google.github.io/traceur-compiler/src/bootstrap.js"></script>
+    <script>
+      traceur.options.experimental = true;
+    </script>
+  </head>
+  <body>
+    <div class="container">
+      <div class="starter-template">
+        {% block body %}{% endblock %}
+      </div>
+    </div>
+    <!-- js, redux -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <script src="/js/bootstrap.min.js"></script>
+  </body>
+</html>

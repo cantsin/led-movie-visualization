@@ -9,6 +9,7 @@ from werkzeug.security import generate_password_hash, check_password_hash
 app = Flask("led-movie-visualization")
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:////tmp/test.db'
 db = SQLAlchemy(app)
+#db.create_all()
 
 class SessionMixin(object):
     def save(self):
@@ -25,7 +26,6 @@ class User(SessionMixin, UserMixin, db.Model):
     id = db.Column(db.Integer, primary_key=True)
     login = db.Column(db.String(255), nullable=False, unique=True)
     password = orm.deferred(db.Column(db.String(255), nullable=False))
-    avatar_image = db.Column(db.String(255))
     active = db.Column(db.Boolean(), nullable=False, default=True)
     created_at = db.Column(db.DateTime(), nullable=False)
     updated_at = db.Column(db.DateTime(), nullable=False)

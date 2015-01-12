@@ -8,11 +8,11 @@ from werkzeug import secure_filename
 from util import slugify, naturaltime, get_gravatar, \
     url_for_redirect_back, get_redirect_target
 from models import User
-from data import DataOperations
 
 import os
 import config
 
+# all movies are shared here
 UPLOAD_FOLDER = 'uploads'
 
 app = Flask('led-movie-visualization')
