@@ -46,7 +46,7 @@ def login():
         user = User.query.filter_by(login=email).scalar()
         if user and user.check_password(password):
             login_user(user)
-            url = url_for_redirect_back('dashboard')
+            url = url_for('dashboard')
             return redirect(url)
         else:
             error = 'Email and password do not match.'
@@ -59,6 +59,13 @@ def login():
 def logout():
     logout_user()
     return redirect(url_for('index'))
+
+@app.route('/dashboard')
+@login_required
+def dashboard():
+    movies = ['test', 'foobar']
+    return render_template('dashboard.html',
+                           movies=movies)
 
 @app.route('/<path:path>')
 def static_proxy(path):
