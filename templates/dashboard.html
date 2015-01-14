@@ -13,13 +13,26 @@
         <ul>
           {% for movie in movies %}
           <li>
-            {{ movie }}
+            <a href="javascript:play_movie('{{ movie }}');">
+              {{ movie }}
+            </a>
           </li>
           {% endfor %}
         </ul>
         <hr/>
-        <p>TODO upload movies</p>
-        <p>TODO toggle ffmpeg/libav settings</p>
+        <h3>Upload Movie</h3>
+        <form id="upload_movie"
+              enctype="multipart/form-data"
+              action="{{ url_for('upload') }}"
+              method="post">
+          <input type="file"
+                 name="movie"
+                 class="btn btn-custom btn">
+          <p>TODO toggle avconv settings</p>
+          <input type="submit"
+                 class="btn btn-custom btn"
+                 value="Upload">
+        </form>
       </div> <!-- /.col-xs-4 -->
     </div> <!-- /.row -->
   </div> <!-- /.container -->

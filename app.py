@@ -67,6 +67,14 @@ def dashboard():
     return render_template('dashboard.html',
                            movies=movies)
 
+@app.route('/upload', methods=['POST'])
+@login_required
+def upload():
+    movie = request.files['movie']
+    path = os.path.join(UPLOAD_FOLDER, secure_filename(movie.filename))
+    movie.save(path)
+    return redirect(url_for('dashboard'))
+
 @app.route('/<path:path>')
 def static_proxy(path):
     return app.send_static_file(path)
