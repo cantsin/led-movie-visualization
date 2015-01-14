@@ -4,6 +4,7 @@ from unicodedata import normalize
 from datetime import datetime
 from flask import request, url_for
 
+import subprocess
 import urllib.parse
 import hashlib
 import humanize
@@ -51,3 +52,12 @@ def get_redirect_target():
             continue
         if is_safe_url(target):
             return target
+
+def downsample(directory, movie_name):
+    command_str = "avconv -y -i %s/%s -s 320x240 -strict experimental %s/led-%s"
+    command = command_str % (directory, movie_name, directory, movie_name)
+    try:
+        subprocess.check_call(command.split(' '))
+        return True, ''
+    except subprocess.CalledProcessError as e:
+        return False, e

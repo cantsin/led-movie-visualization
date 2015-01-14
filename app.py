@@ -63,7 +63,7 @@ def logout():
 @app.route('/dashboard')
 @login_required
 def dashboard():
-    movies = ['test', 'foobar']
+    movies = [x for x in os.listdir(UPLOAD_FOLDER) if x.startswith('led')]
     return render_template('dashboard.html',
                            movies=movies)
 
