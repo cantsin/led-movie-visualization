@@ -20,8 +20,13 @@ virtualenv, run:
 
     pip install -r requirements.txt
 
-That will install all of the requisite packages in the virtualenv. To
-run the application, simply invoking `./app.py` is all that is needed.
+That will install all of the requisite packages in the virtualenv.
+Create the sqlite database by:
+
+    python -c "from models import db; db.create_all()"
+
+To run the application, simply invoking `./app.py` is all that is
+needed.
 
 You may want to set up an user beforehand as there is no provision for
 creating an user. Adding a new user is also simple:
