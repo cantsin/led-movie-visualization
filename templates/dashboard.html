@@ -13,7 +13,7 @@
         <ul>
           {% for movie in movies %}
           <li>
-            <a href="javascript:play_movie('{{ movie }}');">
+            <a class="movies" data-movie="{{ movie }}" href="javascript:void(0);">
               {{ movie }}
             </a>
           </li>
