@@ -54,7 +54,9 @@ def get_redirect_target():
             return target
 
 def downsample(directory, target, name, width, height):
-    command_str = "avconv -y -i %s/%s -s %sx%s -strict experimental %s/led-%s"
+    command_str = "avconv -y -i %s/%s -s %sx%s -strict experimental" \
+      " -c:v libvpx -qmin 0 -qmax 50 -crf 5 -b:v 1M -c:a libvorbis" \
+      " %s/led-%s.webm"
     command = command_str % (directory, name, width, height, target, name)
     try:
         subprocess.check_call(command.split(' '))

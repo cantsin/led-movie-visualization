@@ -4,27 +4,31 @@
 let width = 320;
 let height = 240;
 
-let video = document.createElement('video');
+let video = $('#video')[0];
 video.autoplay = 'autoplay';
 video.loop = 'loop';
 video.muted = 'muted';
 video.controls = true;
+video.width = width;
+video.height = height;
+video.type = "video/mp4";
 
 let canvas = $('#player');
 canvas.attr('width', width);
 canvas.attr('height', height);
 
 let context = canvas[0].getContext('2d');
-context.fillStyle = "#000000";
+context.fillStyle = '#000000';
 context.fillRect(0, 0, width, height);
-context.fillStyle = "#ffffff";
-context.font = "bold 16px Arial";
-context.fillText("No video selected.", width/4, height/2);
+context.fillStyle = '#ffffff';
+context.font = 'bold 16px Arial';
+context.fillText('No video selected.', width/4, height/2);
 
-video.addEventListener("play", function() {
+video.addEventListener('play', function() {
   // add an callback to render video to canvas.
   let callback = function() {
     if(video.paused) {
+      console.log('video paused.');
       return;
     }
     context.drawImage(video, 0, 0, width, height);
@@ -36,21 +40,8 @@ video.addEventListener("play", function() {
 let stage = new PIXI.Stage('0xcccccc');
 let buff8 = new Uint8ClampedArray(width * height);
 
-$("a.movies").click(function() {
+$('a.movies').click(function() {
   let name = 'movies/' + $(this).data('movie');
   video.src = name;
   video.play();
-});
-
-$(".resume").click(() => {
-  if(!video.src) {
-    alert("No video selected.");
-  } else {
-    video.paused = false;
-    $(".control").toggle();
-  }
-});
-$(".play").click(() => {
-  video.paused = true;
-  $(".control").toggle();
 });

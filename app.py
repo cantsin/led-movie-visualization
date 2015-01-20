@@ -77,11 +77,12 @@ def dashboard():
 @login_required
 def upload():
     movie = request.files['movie']
-    path = os.path.join(UPLOAD_FOLDER, secure_filename(movie.filename))
+    filename = secure_filename(movie.filename)
+    path = os.path.join(UPLOAD_FOLDER, filename)
     movie.save(path)
     success, msg = downsample(UPLOAD_FOLDER,
                               CONVERT_FOLDER,
-                              movie.filename,
+                              filename,
                               LED_WIDTH*PANELS,
                               LED_HEIGHT*PANELS)
     if not success:
