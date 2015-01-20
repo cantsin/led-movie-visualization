@@ -1,5 +1,10 @@
 {% extends "base.html" %}
 
+{% block javascript %}
+<script src="/js/pixi.dev.js"></script>
+<script type="module" src="/js/lmv.js"></script>
+{% endblock %}
+
 {% block body %}
 <section id="dashboard">
   <div class="container">
@@ -7,9 +12,15 @@
       <div class="col-xs-8">
         <h2>LED Movie Visualization</h2>
         <canvas id="player"></canvas>
+        <a class="control resume" href="javascript:void(0);">Resume</a>
+        <a class="control play" style="display: none;" href="javascript:void(0);">Play</a>
       </div> <!-- /.col-xs-8 -->
       <div class="col-xs-4">
         <h3>Uploaded Movies</h3>
+        <p>Current size:
+          <strong>{{ panels }}</strong>x<strong>{{ panels }}</strong> panels:
+          <strong>{{ panels * led_width }}</strong>x<strong>{{ panels * led_height }}</strong> pixels.
+        </p>
         <ul>
           {% for movie in movies %}
           <li>

@@ -34,4 +34,18 @@ let buff8 = new Uint8ClampedArray(width * height);
 $("a.movies").click(function() {
   let name = 'movies/' + $(this).data('movie');
   video.src = name;
+  video.play();
+});
+
+$(".resume").click(() => {
+  if(!video.src) {
+    alert("No video selected.");
+  } else {
+    video.paused = false;
+    $(".control").toggle();
+  }
+});
+$(".play").click(() => {
+  video.paused = true;
+  $(".control").toggle();
 });
