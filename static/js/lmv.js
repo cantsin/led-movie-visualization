@@ -15,6 +15,11 @@ canvas.attr('width', width);
 canvas.attr('height', height);
 
 let context = canvas[0].getContext('2d');
+context.fillStyle = "#000000";
+context.fillRect(0, 0, width, height);
+context.fillStyle = "#ffffff";
+context.font = "bold 16px Arial";
+context.fillText("No video selected.", width/4, height/2);
 
 video.addEventListener("play", function() {
   // add an callback to render video to canvas.
