@@ -53,9 +53,9 @@ def get_redirect_target():
         if is_safe_url(target):
             return target
 
-def downsample(directory, movie_name):
-    command_str = "avconv -y -i %s/%s -s 320x240 -strict experimental %s/led-%s"
-    command = command_str % (directory, movie_name, directory, movie_name)
+def downsample(directory, target, name, width, height):
+    command_str = "avconv -y -i %s/%s -s %sx%s -strict experimental %s/led-%s"
+    command = command_str % (directory, name, width, height, target, name)
     try:
         subprocess.check_call(command.split(' '))
         return True, ''

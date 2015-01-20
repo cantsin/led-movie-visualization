@@ -6,14 +6,17 @@ from flask.ext.login import LoginManager, login_required, login_user, \
     logout_user, current_user
 from werkzeug import secure_filename
 from util import slugify, naturaltime, get_gravatar, \
-    url_for_redirect_back, get_redirect_target
+    url_for_redirect_back, get_redirect_target, downsample
 from models import User
 
 import os
 import config
 
-# all movies are shared here
-UPLOAD_FOLDER = 'uploads'
+UPLOAD_FOLDER  = 'uploads'
+CONVERT_FOLDER = 'static/movies'
+LED_WIDTH=30   # number of LEDs per panel width
+LED_HEIGHT=18  # number of LEDs per panel height
+PANELS=5       # number of panels
 
 app = Flask('led-movie-visualization')
 app.jinja_env.filters['slugify'] = slugify
@@ -63,9 +66,12 @@ def logout():
 @app.route('/dashboard')
 @login_required
 def dashboard():
-    movies = [x for x in os.listdir(UPLOAD_FOLDER) if x.startswith('led')]
+    movies = [x for x in os.listdir(CONVERT_FOLDER) if x.startswith('led')]
     return render_template('dashboard.html',
-                           movies=movies)
+                           movies=movies,
+                           led_width=LED_WIDTH,
+                           led_height=LED_HEIGHT,
+                           panels=PANELS)
 
 @app.route('/upload', methods=['POST'])
 @login_required
@@ -73,6 +79,13 @@ def upload():
     movie = request.files['movie']
     path = os.path.join(UPLOAD_FOLDER, secure_filename(movie.filename))
     movie.save(path)
+    success, msg = downsample(UPLOAD_FOLDER,
+                              CONVERT_FOLDER,
+                              movie.filename,
+                              LED_WIDTH*PANELS,
+                              LED_HEIGHT*PANELS)
+    if not success:
+        return jsonify(error=msg)
     return redirect(url_for('dashboard'))
 
 @app.route('/<path:path>')
