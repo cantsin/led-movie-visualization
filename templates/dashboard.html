@@ -26,13 +26,16 @@
         </div>
       </div> <!-- /.col-xs-8 -->
       <div class="col-xs-4">
-        <h3>Uploaded Movies</h3>
+        <h3>Configuration</h3>
+        <div id="panels" data-panels="{{ panels }}"></div>
+        <div id="led_data" data-width="{{ led_width }}" data-height="{{ led_height }}"></div>
         <p>Current size:
-          <div id="panels" data-panels="{{ panels }}"></div>
-          <div id="led_data" data-width="{{ led_width }}" data-height="{{ led_height }}"></div>
           <strong>{{ panels }}</strong>x<strong>{{ panels }}</strong> panels:
           <strong>{{ panels * led_width }}</strong>x<strong>{{ panels * led_height }}</strong> LEDs.
         </p>
+        <p>avconv settings: <code>avconv -y -i input.movie -s {{ led_width }}x{{ led_height }} -strict experimental -c:v libvpx -qmin 0 -qmax 50 -crf 5 -b:v 1M -c:a libvorbis output.webm</code></p>
+        <hr/>
+        <h3>Uploaded Movies</h3>
         <ul>
           {% for movie in movies %}
           <li>
@@ -51,7 +54,6 @@
           <input type="file"
                  name="movie"
                  class="btn btn-custom btn">
-          <p>TODO toggle avconv settings</p>
           <input type="submit"
                  class="btn btn-custom btn"
                  value="Upload">
