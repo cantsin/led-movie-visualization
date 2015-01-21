@@ -23,9 +23,11 @@ context.fillStyle = '#ffffff';
 context.font = 'bold 16px Arial';
 context.fillText('No video selected.', width/3, height/2);
 
-// hard-coded for now
-let led_width = 150;
-let led_height = 90;
+let panels = $('#panels').data('panels');
+let led_w = $('#led_data').data('width');
+let led_h = $('#led_data').data('height');
+let led_width = led_w * panels;
+let led_height = led_h * panels;
 let gap = Math.floor(width/led_width/2);
 
 // off-screen buffer, of sorts

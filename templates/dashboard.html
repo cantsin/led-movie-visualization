@@ -28,6 +28,8 @@
       <div class="col-xs-4">
         <h3>Uploaded Movies</h3>
         <p>Current size:
+          <div id="panels" data-panels="{{ panels }}"></div>
+          <div id="led_data" data-width="{{ led_width }}" data-height="{{ led_height }}"></div>
           <strong>{{ panels }}</strong>x<strong>{{ panels }}</strong> panels:
           <strong>{{ panels * led_width }}</strong>x<strong>{{ panels * led_height }}</strong> LEDs.
         </p>
