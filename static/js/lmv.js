@@ -17,11 +17,7 @@ canvas.attr('width', width);
 canvas.attr('height', height);
 
 let context = canvas[0].getContext('2d');
-context.fillStyle = '#000000';
-context.fillRect(0, 0, width, height);
-context.fillStyle = '#ffffff';
-context.font = 'bold 16px Arial';
-context.fillText('No video selected.', width/3, height/2);
+clear_display();
 
 let panels = $('#panels').data('panels');
 let led_w = $('#led_data').data('width');
@@ -29,6 +25,7 @@ let led_h = $('#led_data').data('height');
 let led_width = led_w * panels;
 let led_height = led_h * panels;
 let gap = Math.floor(width/led_width/2);
+reset_spacing(gap);
 
 // off-screen buffer, of sorts
 let backing = document.createElement('canvas');
@@ -88,4 +85,30 @@ $('#panel_count').change(function() {
   $('.panels_display').html(panels);
   $('.led_width').html(led_width);
   $('.led_height').html(led_height);
+  gap = Math.floor(width/led_width/2);
+  reset_spacing(gap);
+  clear_display();
 });
+
+$('#led_spacing').change(function() {
+  gap = parseInt($(this).val(), 10);
+  clear_display();
+});
+
+function reset_spacing() {
+  $('#led_spacing').html('');
+  for(let i=1; i<gap+2; i++) {
+    $('#led_spacing').append('<option value="' + i + '">' + i + '</option>');
+  }
+  $('#led_spacing').val(gap);
+}
+
+function clear_display() {
+  context.fillStyle = '#000000';
+  context.fillRect(0, 0, width, height);
+  context.fillStyle = '#ffffff';
+  if(!video.src) {
+    context.font = 'bold 16px Arial';
+    context.fillText('No video selected.', width/3, height/2);
+  }
+}
