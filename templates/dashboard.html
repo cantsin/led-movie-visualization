@@ -2,6 +2,7 @@
 
 {% block javascript %}
 <script src="/js/pixi.dev.js"></script>
+<script type="module" src="/js/hsl.js"></script>
 <script type="module" src="/js/lmv.js"></script>
 {% endblock %}
 
@@ -46,6 +47,10 @@
           <option value="2">2</option>
           <option value="1">1</option>
         </select>
+      </p>
+      <p>
+        <input id="lighten" type="checkbox" checked="checked">Simulate LED colors</input>
+        <small>(This brightens the image by 10%.)</small>
       </p>
       <p>Current size:
         <strong class="panels_display">{{ panels }}</strong>x<strong class="panels_display">{{ panels }}</strong> panels:

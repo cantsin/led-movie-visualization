@@ -1,6 +1,8 @@
 /* jshint esnext:true */
 /* global document, setTimeout, PIXI */
 
+import { rgbToHsl, hslToRgb } from 'js/hsl';
+
 let width = 640;
 let height = 400;
 
@@ -19,6 +21,7 @@ canvas.attr('height', height);
 let context = canvas[0].getContext('2d');
 clear_display();
 
+let config_lighten = true;
 let panels = $('#panels').data('panels');
 let led_w = $('#led_data').data('width');
 let led_h = $('#led_data').data('height');
@@ -55,7 +58,15 @@ video.addEventListener('play', function() {
         let r = data[p + 0];
         let g = data[p + 1];
         let b = data[p + 2];
-        context.fillStyle = 'rgb(' + r + ',' + g + ',' + b + ')';
+        if(config_lighten) {
+          let [h, s, l] = rgbToHsl(r, g, b);
+          l *= 1.2;
+          let [nr, ng, nb] = hslToRgb(h, s, l);
+          context.fillStyle = 'rgb(' + nr + ',' + ng + ',' + nb + ')';
+        }
+        else {
+          context.fillStyle = 'rgb(' + r + ',' + g + ',' + b + ')';
+        }
         context.fillRect(x_index, y_index, gap, gap);
         x_index += gap*2;
       }
@@ -93,6 +104,10 @@ $('#panel_count').change(function() {
 $('#led_spacing').change(function() {
   gap = parseInt($(this).val(), 10);
   clear_display();
+});
+
+$('#lighten').click(function() {
+  config_lighten = !config_lighten;
 });
 
 function reset_spacing() {
