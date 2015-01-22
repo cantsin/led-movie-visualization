@@ -79,3 +79,13 @@ $('a.movies').click(function() {
   video.src = name;
   video.play();
 });
+
+// poor man's data binding
+$('#panel_count').change(function() {
+  panels = parseInt($(this).val(), 10);
+  led_width = led_w * panels;
+  led_height = led_h * panels;
+  $('.panels_display').html(panels);
+  $('.led_width').html(led_width);
+  $('.led_height').html(led_height);
+});
