@@ -2,6 +2,7 @@
 
 {% block javascript %}
 <script src="/js/pixi.dev.js"></script>
+<script src="/js/StackBlur.js"></script>
 <script type="module" src="/js/hsl.js"></script>
 <script type="module" src="/js/lmv.js"></script>
 {% endblock %}
@@ -51,6 +52,9 @@
       <p>
         <input id="lighten" type="checkbox" checked="checked">Simulate LED colors</input>
         <small>(This brightens the image by 10%.)</small>
+      </p>
+      <p>
+        <input id="gaussian" type="checkbox">Gaussian blur</input>
       </p>
       <p>Current size:
         <strong class="panels_display">{{ panels }}</strong>x<strong class="panels_display">{{ panels }}</strong> panels:

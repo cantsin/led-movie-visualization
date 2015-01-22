@@ -22,6 +22,7 @@ let context = canvas[0].getContext('2d');
 clear_display();
 
 let config_lighten = true;
+let config_gaussian = true;
 let panels = $('#panels').data('panels');
 let led_w = $('#led_data').data('width');
 let led_h = $('#led_data').data('height');
@@ -48,6 +49,7 @@ video.addEventListener('play', function() {
     // draw video offscreen
     backing_context.drawImage(video, 0, 0, led_width, led_height);
     let data = backing_context.getImageData(0, 0, led_width, led_height).data;
+    clear_display();
 
     // retrieve video pixels and display in a grid
     var x_index = 20;
@@ -67,13 +69,18 @@ video.addEventListener('play', function() {
         else {
           context.fillStyle = 'rgb(' + r + ',' + g + ',' + b + ')';
         }
+
         context.fillRect(x_index, y_index, gap, gap);
+
         x_index += gap*2;
       }
       x_index = 20;
       y_index += gap*2;
     }
 
+    if(config_gaussian) {
+      stackBlurCanvasRGB('player', 0, 0, width, height, 1.2);
+    }
     setTimeout(() => { callback(); }, 0);
   };
   callback();
@@ -108,6 +115,10 @@ $('#led_spacing').change(function() {
 
 $('#lighten').click(function() {
   config_lighten = !config_lighten;
+});
+
+$('#gaussian').click(function() {
+  config_gaussian = !config_gaussian;
 });
 
 function reset_spacing() {
