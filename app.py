@@ -12,6 +12,16 @@ from models import User
 import os
 import config
 
+# ugh. work around an internal bug with flask and python3.4
+import pkgutil
+old_loader = pkgutil.get_loader
+def override_loader(*args, **kwargs):
+    try:
+        return old_loader(*args, **kwargs)
+    except AttributeError:
+        return None
+pkgutil.get_loader = override_loader
+
 UPLOAD_FOLDER  = 'uploads'
 CONVERT_FOLDER = 'static/movies'
 LED_WIDTH=30   # number of LEDs per panel width
