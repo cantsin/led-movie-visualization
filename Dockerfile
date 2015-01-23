@@ -7,4 +7,6 @@ RUN git clone https://github.com/cantsin/led-movie-visualization /lmv
 RUN pip3 install -r /lmv/requirements.txt
 EXPOSE 80
 WORKDIR /lmv
+CMD python3.4 -c "from models import db; db.create_all()"
+CMD python3.4 -c "from models import User; User('bright@leds.com', 'CHANGEME').save()"
 CMD python3.4 app.py 80
