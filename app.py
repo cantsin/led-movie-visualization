@@ -1,6 +1,16 @@
 #!/usr/bin/env python3.4
 # pylint: disable=C0103,C0111,W0142
 
+# ugh. work around an internal bug with flask and python3.4
+import pkgutil
+old_loader = pkgutil.get_loader
+def override_loader(*args, **kwargs):
+    try:
+        return old_loader(*args, **kwargs)
+    except AttributeError:
+        return None
+pkgutil.get_loader = override_loader
+
 from flask import Flask, render_template, request, redirect, url_for, jsonify
 from flask.ext.login import LoginManager, login_required, login_user, \
     logout_user, current_user
@@ -11,16 +21,6 @@ from models import User
 
 import os
 import config
-
-# ugh. work around an internal bug with flask and python3.4
-import pkgutil
-old_loader = pkgutil.get_loader
-def override_loader(*args, **kwargs):
-    try:
-        return old_loader(*args, **kwargs)
-    except AttributeError:
-        return None
-pkgutil.get_loader = override_loader
 
 UPLOAD_FOLDER  = 'uploads'
 CONVERT_FOLDER = 'static/movies'
