@@ -22,7 +22,7 @@ let context = canvas[0].getContext('2d');
 clear_display();
 
 let config_lighten = true;
-let config_gaussian = true;
+let config_gaussian = false;
 let panels = $('#panels').data('panels');
 let led_w = $('#led_data').data('width');
 let led_h = $('#led_data').data('height');

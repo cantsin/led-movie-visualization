@@ -86,6 +86,8 @@ def dashboard():
 @app.route('/upload', methods=['POST'])
 @login_required
 def upload():
+    if not request.files:
+        return jsonify(error='No file uploaded.')
     movie = request.files['movie']
     filename = secure_filename(movie.filename)
     path = os.path.join(UPLOAD_FOLDER, filename)
