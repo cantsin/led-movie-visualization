@@ -17,7 +17,7 @@ from flask.ext.login import LoginManager, login_required, login_user, \
 from werkzeug import secure_filename
 from util import slugify, naturaltime, get_gravatar, \
     url_for_redirect_back, get_redirect_target, downsample
-from models import User
+from models import User, db
 
 import os
 import config
@@ -102,6 +102,11 @@ def upload():
 @app.route('/<path:path>')
 def static_proxy(path):
     return app.send_static_file(path)
+
+# only call if you are running this for the first time.
+def initialize(username, password):
+    db.create_all()
+    return User(username, password).save()
 
 if __name__ == '__main__':
     import sys
