@@ -110,7 +110,7 @@ def initialize(username, password):
 
 if __name__ == '__main__':
     import sys
-    app.debug = True
+    #app.debug = True
     port = 5000
     if len(sys.argv) > 1:
         port = int(sys.argv[1])
