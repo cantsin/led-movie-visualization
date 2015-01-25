@@ -5,6 +5,12 @@ A simple Flask application to play back videos at a much lower resolution that s
 
 ## Installation
 
+### The Short Way
+
+A `Dockerfile` is provided. Simply run `docker build .` to build an image. The web port is exposed by `80` by default in the running container.
+
+### The Long Way
+
 A python 3.4
 [http://docs.python-guide.org/en/latest/dev/virtualenvs/](virtualenv)
 is highly recommended. Install and set up a virtualenv and make sure
