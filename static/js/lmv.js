@@ -1,7 +1,7 @@
 /* jshint esnext:true */
 /* global document, setTimeout, PIXI */
 
-import { rgbToHsl, hslToRgb } from 'js/hsl';
+import { rgbToHsl, hslToRgb } from '../js/hsl.js';
 
 let width = 640;
 let height = 400;
